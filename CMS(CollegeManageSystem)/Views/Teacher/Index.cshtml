@@ -1,0 +1,87 @@
+﻿ @model List<Teacher>
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Teacher List</h2>
+        <a asp-controller="Teacher" asp-action="AddTeacher" class="btn btn-success">
+            <i class="bi bi-person-plus-fill"></i> Add Teacher
+        </a>
+
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th> Name</th>
+                <th>Phone</th>
+                <th>Age</th>
+                <th>DateOfJoining</th>
+                <th>Designation</th>
+                <th>Email</th>
+                <th>Image</th>
+                <th>Sex</th>
+           
+              
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var obj in Model.ToList())
+            {
+                <tr>
+                    <td>@obj.Name</td>
+                    <td>@obj.Phone</td>
+                    <td>@obj.Age</td>
+                    <td>@obj.DateOfJoining</td>
+                    <td>@obj.Designation</td>
+                    <td>@obj.Email</td>
+                    <td>@obj.Image</td>
+                    <td>@obj.Sex</td>
+                    
+                   
+                    <td>
+                        <div class="w-75 btn-group" role="group">
+                            <a asp-controller="Teacher" asp-action="EditTeacher" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
+                                <i class="bi bi-pencil-square"></i> Edit
+                            </a>
+                            @*  <a asp-controller="Category" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-danger mx-2">
+                                <i class="bi bi-trash3-fill"></i> Delete
+                            </a> *@
+                            <button class="btn btn-danger mx-2" onclick="deleteSubject(@obj.Id)">
+                                <i class="bi bi-trash3-fill"></i> Delete
+                            </button>
+
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+    });
+
+    function deleteSubject(TeacherID) {
+        if (confirm('Are you sure you want to delete this teacher?')) {
+            $.ajax({
+                url: '@Url.Action("Delete", "Teacher")',
+                type: 'POST',
+                data: { id: TeacherID },
+                success: function (response) {
+                    if (response.success) {
+                        alert('Teacher deleted successfully!');
+                        location.reload();
+                    } else {
+                        alert('Error deleting subject.');
+                    }
+                },
+                error: function () {
+                    alert('An error occurred while deleting the Teacher.');
+                }
+            });
+        }
+    }
+</script>

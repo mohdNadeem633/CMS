@@ -1,4 +1,6 @@
 using CMS_CollegeManageSystem_.Data;
+using CMS_CollegeManageSystem_.UnitOfwork;
+using CMS_CollegeManageSystem_.UnitOfwork.IUnitOfwork;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddScoped<ICMSUnitOfWork, CMSUnitOfWork>();
 builder.Services.AddDbContext<ApplicationDbContext>(options => 
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 

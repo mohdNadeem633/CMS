@@ -1,0 +1,46 @@
+﻿@model CMS_CollegeManageSystem_.Models.Subjects
+
+<div class="container">
+    <h2>@(Model.Id == 0 ? "Add Subject" : "Edit Subject")</h2> <!-- Dynamic heading -->
+    <form asp-controller="Subject" asp-action="SubjectUpsert" method="post">
+        <input type="hidden" asp-for="Id" /> <!-- Hidden field for Id -->
+
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="mb-3">
+                    <label for="Name" class="form-label">Name</label>
+                    <input type="text" asp-for="Name" class="form-control" required />
+                </div>
+            </div>
+      
+
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="mb-3">
+                    <label for="PhoneNumber" class="form-label">Phone Number</label>
+                    <input type="text" asp-for="Language" class="form-control" required />
+                </div>
+            </div>
+        </div>
+
+        
+
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="mb-3">
+                    <label for="Class" class="form-label">Class</label>
+                    <input type="text" asp-for="Class" class="form-control" required />
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            @(Model.Id == 0 ? "Save" : "Update")
+        </button>
+
+        <a asp-controller="Subject" asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+
+

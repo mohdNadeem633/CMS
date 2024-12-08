@@ -14,8 +14,7 @@ namespace CMS_CollegeManageSystem_.Models
 
         public string Language { get; set; }
 
-        public ICollection<StudentSubject> StudentSubjects { get; set; }
-        public ICollection<TeacherSubject> TeacherSubjects { get; set; }
+      
     }
 
    

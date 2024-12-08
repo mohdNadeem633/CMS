@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace CMS_CollegeManageSystem_.Models
 {
@@ -25,11 +26,12 @@ namespace CMS_CollegeManageSystem_.Models
         [Phone(ErrorMessage = "Invalid Phone Number")]
         public string Phone { get; set; }
 
-        public DateTime DateOfJoining { get; set; }
+        public DateTime DateOfJoining { get; set; } = DateTime.Now;
 
         public string Designation { get; set; }
+        [ValidateNever]
+        public Subjects Subject { get; set; }
+        public int SubjectId { get; set; }
 
-        // A teacher can teach multiple subjects
-        public ICollection<TeacherSubject> TeacherSubjects { get; set; }
     }
 }

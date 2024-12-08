@@ -1,0 +1,137 @@
+﻿@model CMS_CollegeManageSystem_.Models.Teacher
+
+<div class="container">
+    <h2>@(Model.Id == 0 ? "Add Teacher" : "Edit Teacher")</h2> <!-- Dynamic heading -->
+    <form asp-controller="Teacher" asp-action="TeacherUpsert" method="post">
+        <input type="hidden" asp-for="Id" /> <!-- Hidden field for Id -->
+
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="mb-3">
+                    <label for="Name" class="form-label">Name</label>
+                    <input type="text" asp-for="Name" class="form-control" required />
+                </div>
+            </div>
+      
+
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="text" asp-for="Phone" class="form-control" required />
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="mb-3">
+                    <label for="Age" class="form-label">Age</label>
+                    <input type="number" asp-for="Age" class="form-control" required />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="mb-3">
+                    <label for="Sex" class="form-label">Sex</label>
+                    <input type="text" asp-for="Sex" class="form-control" required />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="mb-3">
+                    <label for="Image" class="form-label">Image</label>
+                    <input type="text" asp-for="Image" class="form-control" required />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="mb-3">
+                    <label for="Email" class="form-label">Email</label>
+                    <input type="email" asp-for="Email" class="form-control" required />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="mb-3">
+                    <label for="Date" class="form-label">Date Of Joining</label>
+                    <input type="date" asp-for="DateOfJoining" class="form-control" required />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="mb-3">
+                    <label for="Designation" class="form-label">Designation</label>
+                    <input type="text" asp-for="Designation" class="form-control" required />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4" style=" margin-bottom: 20px;">
+                <div class="form-group">
+                    <label for="Subject">Subject</label>
+                    <select asp-for="SubjectId" id="SubjectDropdown" name="SubjectId" class="form-control">
+                        <option value="">Select a Subject</option>
+                    </select>
+
+                </div>
+            </div>
+        </div>
+
+       
+
+        <button type="submit" class="btn btn-primary">
+            @(Model.Id == 0 ? "Save" : "Update")
+        </button>
+
+        <a asp-controller="Subject" asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            loaddropdown();
+        });
+
+        function loaddropdown() {
+            $.ajax({
+                url: '@Url.Action("GetSubjects", "Teacher")',
+                type: 'GET',
+                success: function (data) {
+                    var dropdown = $("#SubjectDropdown");
+                    dropdown.empty();
+                    dropdown.append('<option value="">Select a Subject</option>');
+
+                    // Get the current selected Subject_id (this should be available as part of the model in the page)
+                    var selectedSubjectId = @Model.SubjectId
+
+                    $.each(data, function (index, subject) {
+                        // Check if the current subject is the one selected for the student
+                        var isSelected = subject.id === selectedSubjectId ? 'selected' : '';
+                        dropdown.append('<option value="' + subject.id + '" ' + isSelected + '>' + subject.name + '</option>');
+                    });
+                },
+                error: function () {
+                    alert("Error fetching subjects. Please try again.");
+                }
+            });
+        }
+    </script>
+}

@@ -9,10 +9,16 @@ namespace CMS_CollegeManageSystem_.Data
         {
            
         }
+
         public DbSet<Student> Students { get; set; }
         public DbSet<Subjects> Subjects { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
-        public DbSet<StudentSubject> StudentSubjects { get; set; }
-        public DbSet<TeacherSubject> TeacherSubjects { get; set; }
+       
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+         
+        }
     }
 }

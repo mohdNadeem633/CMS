@@ -10,10 +10,10 @@ namespace CMS_CollegeManageSystem_.Models
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Age is required")]
-        [Range(1, 120, ErrorMessage = "Age must be between 1 and 120")]
+        [Range(1, 50, ErrorMessage = "Age must be between 1 and 50")]
         public int Age { get; set; }
 
-        public string Image { get; set; }
+        public string? Image { get; set; }
 
         [Required(ErrorMessage = "Class is required")]
         public string Class { get; set; }
@@ -27,7 +27,10 @@ namespace CMS_CollegeManageSystem_.Models
 
         [Required(ErrorMessage = "Phone Number is required")]
         [Phone(ErrorMessage = "Invalid Phone Number")]
+        [MaxLength(13)]
         public string PhoneNumber { get; set; }
-        public ICollection<StudentSubject> StudentSubjects { get; set; }
+
+        public int? Subject_id { get; set; }
+       
     }
 }
