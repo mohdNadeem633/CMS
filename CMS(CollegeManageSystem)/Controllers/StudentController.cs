@@ -11,35 +11,36 @@ namespace CMS_CollegeManageSystem_.Controllers
         {
             _context = context;
         }
-        //public IActionResult Index()
+        public IActionResult Index()
+        {
+            SortingLogics sortingLogics = new SortingLogics();
+
+            List<Student> studlist = _context.Students.ToList();
+            var sortedList = studlist
+                .OrderBy(s => sortingLogics.IsAlphanumericClass(s.Class) ? 0 : 1)
+                .ThenByDescending(s => sortingLogics.ExtractNumericValue(s.Class))
+                .ThenBy(s => sortingLogics.ExtractAlphabeticPart(s.Class))
+                .ToList();
+
+            return View(studlist);
+            // return View(sortedList);
+        }
+        //public IActionResult Index(string searchQuery)
         //{
 
-        //    List<Student> studlist = _context.Students.ToList();
-        //    //var sortedList = studlist
-        //    //    .OrderBy(s => IsAlphanumericClass(s.Class) ? 0 : 1)  
-        //    //    .ThenByDescending(s => ExtractNumericValue(s.Class))  
-        //    //    .ThenBy(s => ExtractAlphabeticPart(s.Class)) 
-        //    //    .ToList();
+        //    var studlist = _context.Students.AsQueryable();
 
-        //    return View(studlist);
-        //    // return View(sortedList);
+
+        //    if (!string.IsNullOrEmpty(searchQuery))
+        //    {
+        //        studlist = studlist.Where(s => s.Name.Contains(searchQuery));
+        //    }
+
+
+        //    List<Student> studentList = studlist.ToList();
+
+        //    return View(studentList);
         //}
-        public IActionResult Index(string searchQuery)
-        {
-            
-            var studlist = _context.Students.AsQueryable();
-
-            
-            if (!string.IsNullOrEmpty(searchQuery))
-            {
-                studlist = studlist.Where(s => s.Name.Contains(searchQuery));
-            }
-
-           
-            List<Student> studentList = studlist.ToList();
-
-            return View(studentList);
-        }
 
 
         public IActionResult AddStudent()
