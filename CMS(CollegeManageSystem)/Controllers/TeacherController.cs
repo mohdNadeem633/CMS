@@ -20,9 +20,6 @@ namespace CMS_CollegeManageSystem_.Controllers
 
             List<Teacher> teacherls = _UnitOfWork.Teacher.GetAll(includeProperties: "Subject").ToList();
             return View(teacherls);
-
-            //var teachers = _context.Teachers.ToList();
-            //return View(teachers);
         }
 
         public IActionResult AddTeacher()
